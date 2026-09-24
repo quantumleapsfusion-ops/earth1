@@ -8,3 +8,4 @@ One line per non-obvious technical choice: `YYYY-MM-DD · choice · reason`. Dev
 - 2026-09-24 · KaTeX rendered at build time · No client math JS; fits the performance budget.
 - 2026-09-24 · No analytics by default · Nothing to disclose or leak; revisit if the founder asks.
 - 2026-09-24 · Product legal pages on e1-4.com, company privacy notice and imprint on earth1.co · Meta requires app-domain URLs; earth1.co never touches voice data.
+- 2026-09-24 · Two marks: Earth One mark for earth1.co, Ψ/π mark for e1-4.com · Founder supplied the Earth One logo; the Ψ/π mark is the product's.

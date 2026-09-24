@@ -10,9 +10,9 @@ Devin can't do these. Tick them off as you go; Devin will ask when it's blocked 
 
 ## Before Task 2 (brand shell)
 
-- [ ] Put the two logo files in `public/brand/`, exactly as you have them:
-  - Logo A: chalk-on-chalkboard mark
-  - Logo B: white-outline-on-black refined mark (an SVG is ideal; if you only have PNG, send the largest one you have)
+- [x] Earth One mark supplied (`public/brand/earth-one-mark.webp`, 2026-09-24).
+- [ ] Send the Earth One mark as an **SVG with a transparent background** (or at least a large transparent PNG). The current file has a solid black background that will show as a box on the site's green-black background, and it's too small for sharp share images.
+- [ ] For e1-4.com later: the two Ψ/π files (chalkboard and refined versions).
 
 ## Before production launch (Task 7)
 

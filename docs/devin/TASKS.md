@@ -62,7 +62,7 @@ CONTEXT: DEVIN.md section 3 and M1. docs/BRAND.md in full.
 ACCEPTANCE CRITERIA:
 1. Colors, type scale, spacing, and motion tokens from BRAND.md defined once (Tailwind theme + CSS variables) in a single file that could later be copied into e1-4.com unchanged.
 2. Fraunces and Space Grotesk self-hosted via next/font, subset as BRAND.md says, font-display: swap. No request to fonts.googleapis.com at runtime (verify in the network panel).
-3. `<Mark />` component uses the founder-supplied file from public/brand/. If the files are not present, it renders the text wordmark "Earth One" and the PR says so. Never draw a Ψ/π substitute.
+3. `<Mark />` uses the Earth One mark from public/brand/ (earth-one-mark.webp, or the transparent SVG if the founder has supplied it), following docs/BRAND.md §3.1 including its known-limits rules. If only the black-background raster exists, say in the PR how you handled it. Never redraw, trace, or knock out the background of the mark.
 4. Nav: mark + "Earth One" left, "e1-4 →" right linking to https://e1-4.com (same tab). Nothing else.
 5. Footer: copy from CONTENT.md section 6; Privacy and Imprint links point to /legal/privacy and /legal/imprint (pages come in Task 3).
 6. Home page has empty, correctly spaced <section> landmarks for hero, mission, equations, philosophy, each with an id. No placeholder text in them.
@@ -207,8 +207,8 @@ TASK TITLE: Launch earth1.co
 GOAL: Make earth1.co production-ready and serve it on the real domain.
 
 ACCEPTANCE CRITERIA:
-1. Metadata from CONTENT.md section 9: title, description, canonical URL (https://earth1.co), Open Graph + Twitter card. OG image (1200×630) generated at build time from the brand: blackboard background, "Global Citizenship For All." in Fraunces chalk, the chalkboard mark if supplied. No other text.
-2. Favicon, apple-touch-icon, and icon set generated from the founder's refined mark (no redrawing). robots.txt and sitemap.xml (excluding /legal/imprint until it's filled in, and /dev/*).
+1. Metadata from CONTENT.md section 9: title, description, canonical URL (https://earth1.co), Open Graph + Twitter card. OG image (1200×630) generated at build time from the brand: blackboard background, "Global Citizenship For All." in Fraunces chalk, the Earth One mark (only if a transparent or high-resolution version has been supplied; otherwise text only). No other text.
+2. Favicon, apple-touch-icon, and icon set generated from the Earth One mark (no redrawing; cropping to the mark with even padding is fine). robots.txt and sitemap.xml (excluding /legal/imprint until it's filled in, and /dev/*).
 3. Security headers from DOMAINS.md section 2 via public/_headers. securityheaders.com grade A or better. No CSP violations in the console.
 4. Custom domain: earth1.co (apex) on the Cloudflare Pages project, HTTPS, www.earth1.co → 301 → https://earth1.co. Only the records listed in DOMAINS.md section 1; nothing touching MX/email or e1-4.com.
 5. Cross-browser pass: iOS Safari, Android Chrome, desktop Chrome, Firefox, Safari, Edge. Note results in the PR.

@@ -8,7 +8,7 @@ When the e1-4.com repo is created, copy the master spec into it as `DEVIN.md` an
 
 ## A1. Visual style is decided
 
-The master spec leaves "visual style: [FOUNDER TO DESCRIBE]". It's decided: use **`docs/BRAND.md`** from this repo (blackboard `#0e1a13`, chalk `#f1ede1`, dust `#93a294`, ochre `#d3a34c`; Fraunces + Space Grotesk; the Ψ-over-π mark). Copy the tokens file verbatim from earth1.co; the two sites must never drift. The app is dark only.
+The master spec leaves "visual style: [FOUNDER TO DESCRIBE]". It's decided: use **`docs/BRAND.md`** from this repo (blackboard `#0e1a13`, chalk `#f1ede1`, dust `#93a294`, ochre `#d3a34c`; Fraunces + Space Grotesk; the Ψ-over-π mark for e1-4; earth1.co has its own Earth One mark, see `BRAND.md` §3). Copy the tokens file verbatim from earth1.co; the two sites must never drift. The app is dark only.
 
 The founder's logo rules apply in both repos: use the supplied files only; never redraw or AI-generate the mark.
 

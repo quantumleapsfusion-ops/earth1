@@ -40,20 +40,42 @@ Self-host both via `next/font` (no runtime calls to Google Fonts). Subset to Lat
 
 Line length: 60–75 characters for body text; the Latin can run wider (up to ~34em).
 
-## 3. Mark and logo
+## 3. Marks and logos
 
-The mark is **Ψ over π, divided by a hairline rule**. The founder has two supplied versions:
+There are **two marks**, one per domain. They are siblings, not substitutes: never swap them.
 
-- **Logo A: chalkboard mark** (chalk texture, hand-drawn). Use for large, expressive moments only (e.g. the Open Graph image, possibly a large footer mark).
-- **Logo B: refined mark** (clean white outline on black). The primary production logo: nav, favicon, touch icons, social avatars.
+### 3.1 Earth One mark (earth1.co)
 
-Files live in `public/brand/` exactly as supplied. Suggested names: `logo-chalk.png`, `logo-refined.svg` (or `.png`).
+The company mark. Supplied by the founder on 2026-09-24 as `public/brand/earth-one-mark.webp`.
 
-**Do not:** redraw, trace, vectorize, AI-generate, recolor (other than to chalk `#f1ede1` if supplied as white), rotate, stretch, add gradients/glows/shadows, or substitute a generic icon. If a vector version is needed and only a raster exists, **ask the founder** for one rather than tracing it.
+What it is: a heavy white vertical bar rising through a thin white horizontal bar set high on it, inside two concentric circles (a thin solid grey outer ring and a dashed grey inner ring), on a black field. Treat that description as identification only, **not** as instructions to rebuild it.
 
-**If the files aren't in the repo yet:** use the text wordmark "Earth One" in Fraunces, chalk color, and leave a clearly named component (`<Mark />`) ready to swap. Don't draw a stand-in Ψ/π glyph.
+Uses on earth1.co: nav, favicon and touch icons, Open Graph image, footer.
 
-Clear space around the mark: at least the height of the π. Minimum size: 24px tall in the nav.
+**Known limits of the supplied file (founder to resolve; Devin must not "fix" them by redrawing):**
+- It's a 679×398 raster with a **solid black (#000) background**. On the blackboard background (`#0e1a13`) that black shows as a visible box. We need a version with a **transparent background**, ideally an **SVG**.
+- The mark sits in a wide canvas with a lot of padding, so it will look small unless it's cropped. Cropping to the mark with even padding (no other change) is allowed.
+- At 679px wide it's too small for a sharp OG image or large display. An SVG solves this too.
+- Until the founder supplies a transparent SVG: use the file in the nav and footer **only on a black-backed element sized to the image** (a small black tile is acceptable), or fall back to the "Earth One" text wordmark, and flag it in the PR. Don't knock out the background with filters or blend modes, and don't trace it.
+
+Clear space: at least half the outer circle's radius on every side. Minimum size: 28px tall in the nav (the dashed ring disappears below that; at favicon sizes it's acceptable for the dashed ring to blur, but never remove it).
+
+### 3.2 e1-4 mark (e1-4.com)
+
+The product mark: **Ψ over π, divided by a hairline rule**. The founder has two versions (files not yet in any repo):
+
+- **Chalkboard version** (chalk texture, hand-drawn): large, expressive moments only.
+- **Refined version** (clean white outline on black): nav, favicon, touch icons, social avatars on e1-4.com.
+
+On earth1.co the Ψ/π mark appears **only** if the founder asks (e.g. next to the e1-4 link). Clear space: at least the height of the π.
+
+### 3.3 Rules for both marks
+
+Files live in `public/brand/` exactly as supplied.
+
+**Do not:** redraw, trace, vectorize, AI-generate, recolor (other than white to chalk `#f1ede1` in an SVG the founder supplies), rotate, stretch, add gradients/glows/shadows, or substitute a generic icon. If a vector or transparent version is needed and only a raster exists, **ask the founder** for one.
+
+**If a file isn't in the repo yet:** use the text wordmark ("Earth One" or "e1-4") in Fraunces, chalk color, behind a `<Mark />` component ready to swap.
 
 ## 4. Space and layout
 

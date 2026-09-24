@@ -114,7 +114,7 @@ The brand is shared with e1-4.com. Full tokens are in `docs/BRAND.md`. Summary:
 
 - **Palette:** blackboard `#0e1a13` background, chalk `#f1ede1` text, dust `#93a294` secondary, ochre `#d3a34c` single accent.
 - **Type:** Fraunces (serif) for display, Latin, and equations; Space Grotesk (sans) for nav, UI, and body.
-- **Mark:** Ψ over π, divided by a hairline rule. Founder-supplied files only.
+- **Marks:** earth1.co uses the **Earth One mark** (vertical bar through a horizontal bar inside two concentric rings; `public/brand/earth-one-mark.webp`). e1-4.com uses the **Ψ-over-π mark**. Founder-supplied files only; see `BRAND.md` §3.
 - **Dark only.** The site is a chalkboard. Do not build a light theme.
 - **Motion:** only the Cicero reveal and quiet fades. Everything respects `prefers-reduced-motion`.
 - **Mobile-first.** Designed at 375px wide, then scaled up. No horizontal scroll at any width.
