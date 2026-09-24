@@ -51,7 +51,9 @@ Behavior is specified in `docs/CICERO_REVEAL.md`. The strings below are exact. N
 
 **`hero.citation`** (FINAL):
 
-> Cicero, *De Finibus Bonorum et Malorum* I.32, 45 BC
+> — Cicero, *De Finibus Bonorum et Malorum* (The Extremes of Good and Evil), sections 1.10.32 and 1.10.33, 45 B.C.
+
+(Founder's wording, 2026-09-24. Render the Latin title in italics and the English title in roman, inside parentheses.)
 
 **`hero.srIntro`** (screen-reader-only sentence read before the Latin; DRAFT, FOUNDER TO APPROVE):
 

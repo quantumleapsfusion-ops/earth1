@@ -4,7 +4,7 @@ This is the one bold gesture on earth1.co. Build it exactly as described; any ch
 
 ## 1. The idea
 
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit…", the placeholder on nearly every unfinished web page for decades, isn't gibberish. It's a scrambled, truncated fragment of one real sentence from Cicero's *De Finibus Bonorum et Malorum* (I.32, 45 BC).
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit…", the placeholder on nearly every unfinished web page for decades, isn't gibberish. It's a scrambled, truncated fragment of one real sentence from Cicero's *De Finibus Bonorum et Malorum* (The Extremes of Good and Evil), sections 1.10.32–33, 45 B.C.
 
 The page loads looking **unfinished**: the familiar lorem ipsum in muted grey, as if nobody had written the site yet. As the visitor scrolls, it **decodes** letter by letter into Cicero's real sentence. Then the English translation fades in beneath it, then the citation.
 
