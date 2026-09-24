@@ -204,11 +204,11 @@ JPEG/PNG/WebP up to 5 MB. Validate by content, not extension. Strip EXIF (includ
 | Hosting | **Vercel** (Pro) with preview deploys on every PR |
 | Database | **Supabase Postgres**, accessed with **Prisma** (schema + versioned migrations) |
 | Auth | **Supabase Auth**: Google, Facebook, Microsoft (Azure) providers |
-| File storage | **Cloudflare R2** (S3-compatible) for audio and avatars; private buckets; short-lived signed URLs only |
-| Background jobs | **Trigger.dev** for audio normalization (ffmpeg), transcription post-processing, Da Vinci calls, deletion fan-out. Never run long work in short-lived serverless functions. |
+| File storage | **Supabase Storage** to start: bucket `voice` (private) and `avatars`. All access goes through a `StorageProvider` interface so it can move to **Cloudflare R2** later without touching features (if audio download volume gets expensive; ask first). Audio only via short-lived signed URLs. |
+| Background jobs | **Trigger.dev** (added in M2, when audio normalization is needed; not in M0/M1) for audio normalization (ffmpeg), transcription post-processing, Da Vinci calls, deletion fan-out. Never run long work in short-lived serverless functions. |
 | Audio capture | MediaRecorder with timeslice chunks; Web Audio API for levels; Wake Lock API |
-| Speech-to-text | Behind a `TranscriptionProvider` interface. Default **Deepgram** (streaming, word timestamps). [FOUNDER CONFIRMS] Must support word-level timestamps, streaming, and no-retention/no-training settings. |
-| Da Vinci (LLM) | Behind a `DaVinciProvider` interface. Default **Anthropic Claude** via the official `@anthropic-ai/sdk`, model **`claude-opus-5`**, structured outputs (`output_config.format` / `messages.parse`) validated with **Zod**. Check `stop_reason` (including `"refusal"`) before reading content. Stream long requests. **No LangChain or LlamaIndex**: one direct SDK call per job is simpler and cheaper to maintain. Verify model IDs and parameters in Anthropic's current docs at build time. |
+| Speech-to-text | Behind a `TranscriptionProvider` interface, **stubbed from M0** so the app runs without a key and shows a calm "transcription not enabled yet" state. Default **Deepgram** (streaming, word timestamps). [FOUNDER CONFIRMS] Must support word-level timestamps, streaming, and no-retention/no-training settings. |
+| Da Vinci (LLM) | Behind a `DaVinciProvider` interface, **stubbed from M0** the same way. Default **Anthropic Claude** via the official `@anthropic-ai/sdk`, model **`claude-opus-5`**, structured outputs (`output_config.format` / `messages.parse`) validated with **Zod**. Check `stop_reason` (including `"refusal"`) before reading content. Stream long requests. **No LangChain or LlamaIndex**: one direct SDK call per job is simpler and cheaper to maintain. Verify model IDs and parameters in Anthropic's current docs at build time. |
 | Visuals | SVG/Canvas for the living transcript and templates; **Konva** (or similar) for chalkboard pan/zoom; **KaTeX** for equations; three.js only for M8 |
 | Email | **Resend**, from `no-reply@e1-4.com` (account and security notices only) |
 | Monitoring | **Sentry** for errors (with PII scrubbing); privacy-respecting product analytics only if the founder approves |
@@ -216,13 +216,14 @@ JPEG/PNG/WebP up to 5 MB. Validate by content, not extension. Strip EXIF (includ
 | DNS | Cloudflare (same account as earth1.co) |
 
 **Constraints**
+- `SUPABASE_SERVICE_ROLE_KEY` and every provider API key live only in server environment variables: never `NEXT_PUBLIC_…`, never in the repo, never pasted into chat. Only the Supabase URL and anon key may be public.
 - Provider API keys **never** reach the browser. For live transcription from the browser, the server issues short-lived tokens.
 - Authorization is enforced **in server code on every route**. If you also use Supabase Row Level Security, it's a second layer, not a replacement.
 - Cost scales with **audio minutes** and **Da Vinci calls**: log cost per stream and per user, enforce per-user daily caps in alpha, and ask before adding any paid service.
 - Monthly cost targets: infrastructure under $[X]; usage-based speech + LLM capped at $[Y]. [FOUNDER]
 - No self-hosted servers.
 - Everything reproducible: README gets a new developer running locally in under 15 minutes; `.env.example` lists every variable; secrets only in environment variables (Vercel / Trigger.dev), never in the repo.
-- Data region: [FOUNDER, with lawyer: US or EU]. Supabase, R2, and processors should match where possible.
+- Data region: [FOUNDER, with lawyer: US or EU]. Supabase, storage, and processors should match where possible.
 
 ---
 
@@ -259,7 +260,7 @@ Each ends with a deployed preview and a short plain-language demo summary. Don't
 **M1 · Sign-in and profile.** Supabase Auth with Google, Facebook, Microsoft; profile page; avatar upload (validation, EXIF strip, resize); default avatar.
 *Done when:* a new user can sign in with each provider on a phone, gets a profile on first login, can upload an avatar (bad files rejected, EXIF stripped); logged-out users can't reach protected pages or API routes; tests cover auth and unauthorized access.
 
-**M2 · Voice Stream core.** Consent screen; mic permission handling; record/pause/resume; chunked resumable upload to R2; offline queue; wake lock; normalization job; playback with seek and markers; delete stream.
+**M2 · Voice Stream core.** Consent screen; mic permission handling; record/pause/resume; chunked resumable upload to the `voice` bucket; offline queue; wake lock; normalization job; playback with seek and markers; delete stream.
 *Done when:*
 1. Start a stream, pause/resume 10+ times; it plays back as one stream with markers.
 2. A 60-minute stream records and plays on desktop Chrome and Android Chrome; iOS Safari tested on a real device and documented (including screen lock).

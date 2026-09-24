@@ -45,7 +45,8 @@ ACCEPTANCE CRITERIA:
 5. Installable PWA shell (manifest, service worker, icons from public/brand/ if present, else a plain chalk "e1-4" wordmark; never draw a Ψ/π substitute).
 6. Brand tokens from docs/BRAND.md in one tokens file (Tailwind theme + CSS variables); Fraunces and Space Grotesk self-hosted via next/font. Dark only.
 7. The only page: blackboard background with "e1-4" and "Think." in chalk. No lorem ipsum or starter content.
-8. README (run locally in under 15 minutes), `.env.example` listing every variable, docs/ARCHITECTURE.md, docs/DECISIONS.md, docs/PROCESSORS.md (empty table) created.
+8. `TranscriptionProvider` and `DaVinciProvider` interfaces exist with stub implementations selected when their keys are absent; the app builds and runs with only the Supabase variables set.
+9. README (run locally in under 15 minutes), `.env.example` listing every variable, docs/ARCHITECTURE.md, docs/DECISIONS.md, docs/PROCESSORS.md (empty table) created.
 
 FILES / AREAS TO TOUCH: whole repo.
 FILES / AREAS NOT TO TOUCH: DEVIN.md, SETUP.md, CONTENT.md, docs/BRAND.md, docs/DOMAINS.md.
@@ -54,7 +55,7 @@ HOW TO TEST IT: open a trivial PR; CI goes green and a preview URL appears; open
 
 REQUIRES FOUNDER REVIEW BEFORE MERGE? Yes (deploy and secrets configuration).
 
-QUESTIONS TO ASK BEFORE STARTING: confirm the stack in DEVIN.md section 4 (Vercel, Supabase + Prisma, R2, Trigger.dev); confirm the Supabase data region; confirm you have Vercel and Supabase access.
+QUESTIONS TO ASK BEFORE STARTING: confirm the stack in DEVIN.md section 4 (Vercel, Supabase Auth + Postgres + Storage, Prisma; Trigger.dev from M2); confirm the Supabase data region; confirm you have Vercel and Supabase access.
 ```
 
 ---
@@ -105,7 +106,7 @@ ACCEPTANCE CRITERIA:
 1. Sign-in works with all three providers via Supabase Auth, on desktop and a phone, including from the installed PWA. First login creates a User and profile (display name and default avatar from the provider).
 2. No auto-linking of accounts across providers.
 3. Protected pages redirect and protected API routes return 401 when logged out; authorization checked in server code.
-4. Avatar upload to R2: JPEG/PNG/WebP up to 5 MB, type checked by file content, EXIF stripped, resized to standard sizes, served via signed or cache-safe URLs; other files rejected with a clear message; default avatar when none.
+4. Avatar upload to the Supabase `avatars` bucket via the StorageProvider interface: JPEG/PNG/WebP up to 5 MB, type checked by file content, EXIF stripped, resized to standard sizes, served via signed or cache-safe URLs; other files rejected with a clear message; default avatar when none.
 5. Deleting the avatar removes every size from storage (automated test).
 6. Simple logged-in home placeholder and profile page; no free-text fields.
 7. Sign-out works everywhere; sessions use secure cookies.
@@ -118,7 +119,7 @@ HOW TO TEST IT: sign in with a test account for each provider on a phone; upload
 
 REQUIRES FOUNDER REVIEW BEFORE MERGE? Yes (authentication, permissions, migrations).
 
-QUESTIONS TO ASK BEFORE STARTING: are all three providers configured in Supabase? Is the R2 avatar bucket and token ready?
+QUESTIONS TO ASK BEFORE STARTING: are all three providers configured in Supabase? Do the `voice` and `avatars` buckets exist?
 ```
 
 ---
@@ -137,7 +138,7 @@ CONTEXT: Transcription and animation are NOT part of this task (M3).
 ACCEPTANCE CRITERIA:
 1. One mic button starts, pauses, and resumes; a separate deliberate action ends the stream. Recording state and a live level meter are obvious.
 2. A consent screen appears before the first recording (what's recorded, where it's stored, how to delete it); consent is stored.
-3. Audio uploads to R2 in ~10–30 s chunks with sequence numbers; uploads are resumable and retry automatically.
+3. Audio uploads to the private `voice` bucket (via StorageProvider) in ~10–30 s chunks with sequence numbers; uploads are resumable and retry automatically.
 4. Offline for 2 minutes mid-stream: no audio lost after reconnect (chunks queued in IndexedDB).
 5. Closing the tab loses at most the last ~30 s.
 6. Screen Wake Lock while recording; backgrounding or locking the phone is detected and clearly communicated, and the user can resume.
@@ -147,7 +148,7 @@ ACCEPTANCE CRITERIA:
 10. Deleting a stream removes all chunks, the normalized file, and all rows (automated integration test).
 11. Tested on desktop Chrome, Android Chrome, and iOS Safari on real devices; results, including limits, in docs/DECISIONS.md.
 
-FILES / AREAS TO TOUCH: recorder UI, upload API, R2 storage, jobs/, playback, Prisma (Stream, Segment, AudioChunk).
+FILES / AREAS TO TOUCH: recorder UI, upload API, storage, jobs/, playback, Prisma (Stream, Segment, AudioChunk).
 FILES / AREAS NOT TO TOUCH: auth, landing page, transcription, Da Vinci.
 
 HOW TO TEST IT: record 60 minutes with 10 pauses; airplane mode for 2 minutes mid-stream; close and reopen the tab; lock the phone; delete the stream and check the bucket.

@@ -2,6 +2,15 @@
 
 This is everything you, the founder, must have before and during the Devin build of e1-4. Devin can't create these accounts for you. Create every account **under the company** (Earth One Global Coalescent) with your company email, turn on two-factor login, and give Devin **API keys or scoped access**, never your passwords.
 
+## 0. Minimum to start (Tasks 1–4)
+
+Create just **two** things: a **Supabase** project and a **Vercel** account. (Prisma is a code library, not an account.)
+
+From Supabase, Devin needs these, entered as environment variables in Vercel (never pasted in chat):
+`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (secret), `DATABASE_URL` (pooler) and `DIRECT_URL` (direct). Devin creates the `voice` (private) and `avatars` buckets.
+
+Everything else comes later: Google/Facebook/Microsoft sign-in secrets (entered in Supabase) before Task 3; Trigger.dev at Task 4; speech-to-text and Claude keys at M3/M5. Until then those features are stubbed and the app still runs.
+
 ## 1. The short answer to "do I need Vercel or Supabase?"
 
 **For e1-4.com: yes, both** (defaults; Devin will confirm with you in Task 1).
@@ -10,7 +19,7 @@ This is everything you, the founder, must have before and during the Devin build
 | --- | --- | --- |
 | Hosting | **Vercel** (Pro plan) | Runs the Next.js app. Every Devin PR gets its own preview link. |
 | Database + sign-in | **Supabase** (Pro plan) | Postgres database and "Sign in with Google / Facebook / Microsoft". |
-| Audio and avatar storage | **Cloudflare R2** | Stores voice recordings. No download fees, which matters when people replay long streams. |
+| Audio and avatar storage | **Supabase Storage** (included) | Buckets `voice` (private) and `avatars`. Can move to Cloudflare R2 later if download costs grow. |
 | Background work | **Trigger.dev** | Long jobs: stitching audio chunks, transcription clean-up, Da Vinci analysis. |
 | Speech-to-text | **Deepgram** (default; you choose) | Live transcription with word-by-word timing, which drives the animated transcript. |
 | Da Vinci's brain | **Anthropic (Claude API)** | Reads transcripts and returns the analysis and chalkboard layout. |
@@ -29,7 +38,7 @@ Why not just one service? Each piece is the "boring, reliable" choice for its jo
 | --- | --- |
 | Vercel Pro | about $20/month (the free plan isn't allowed for commercial use) |
 | Supabase Pro | about $25/month (the free tier is fine while building; upgrade before real users) |
-| R2, Trigger.dev, Resend, Sentry | $0 to a few dollars on free tiers at alpha scale |
+| Trigger.dev, Resend, Sentry | $0 to a few dollars on free tiers at alpha scale |
 | Deepgram (speech-to-text) | pay per minute of audio: **set a monthly cap** |
 | Claude API (Da Vinci) | pay per use: **set a monthly cap** in the Anthropic Console |
 | Google Workspace | about $7 per user per month |
@@ -59,7 +68,6 @@ Check each provider's pricing page when you sign up; prices change. The two usag
 - [ ] Paste each Client ID and Secret into **Supabase → Authentication → Providers** (never into the code or a chat).
 
 ### Before Task 4 (Voice Stream recorder)
-- [ ] **Cloudflare R2:** create a bucket for audio and one for avatars; create an API token scoped to those buckets and give it to Devin via Vercel environment variables.
 - [ ] **Trigger.dev:** create a project; give Devin the key via environment variables.
 
 ### Before milestone M3 (animated transcript)
