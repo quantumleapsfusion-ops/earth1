@@ -24,7 +24,8 @@ This repo currently holds the **build instructions for Devin**. The site itself 
 | [`docs/BRAND.md`](docs/BRAND.md) | Shared Earth One / e1-4 brand system |
 | [`docs/CICERO_REVEAL.md`](docs/CICERO_REVEAL.md) | Spec for the lorem ipsum → Cicero hero reveal |
 | [`docs/DOMAINS.md`](docs/DOMAINS.md) | earth1.co vs e1-4.com, DNS, email, cross-links |
-| [`docs/devin/E1-4-ADDENDUM.md`](docs/devin/E1-4-ADDENDUM.md) | Updates to the e1-4 master spec (brand, Gravity Board, landing page, build order) |
+| [`e1-4/`](e1-4/README.md) | **Full Devin build pack for e1-4.com**: setup (accounts, costs), master spec, tasks, landing copy |
+| [`docs/devin/E1-4-ADDENDUM.md`](docs/devin/E1-4-ADDENDUM.md) | Superseded by `e1-4/`; kept for history |
 | [`docs/FOUNDER_CHECKLIST.md`](docs/FOUNDER_CHECKLIST.md) | What only the founder can do, plus open decisions |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Technical decision log |
 

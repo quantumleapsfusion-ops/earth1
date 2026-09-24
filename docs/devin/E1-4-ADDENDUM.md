@@ -1,5 +1,7 @@
 # e1-4 Master Spec: Addendum
 
+> **Superseded:** everything here is now merged into the full e1-4 build pack in [`/e1-4`](../../e1-4/README.md) (`DEVIN.md`, `TASKS.md`, `SETUP.md`, `CONTENT.md`). Use that. This file is kept for history.
+
 The main e1-4 build spec is the **"Devin Build Instructions: e1-4"** section of the founder's *social network* Google Doc (sections 0–12: mission, product spec, stack, milestones M0–M7, working agreement, first three tasks, founder checklist). That spec still stands. **This addendum updates it** with decisions made since, including the ones that came out of the earth1.co work. Where they conflict, this file wins.
 
 When the e1-4.com repo is created, copy the master spec into it as `DEVIN.md` and this addendum as `docs/ADDENDUM.md`.
